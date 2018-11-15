@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+    {% if alreadyExists %}
+    <div class="alert alert-danger">
+    L'utilisateur existe déjà
+    </div>
+    {% endif %}
+
+    {{ include('user/_form.html.twig') }}
+
+{% endblock %}

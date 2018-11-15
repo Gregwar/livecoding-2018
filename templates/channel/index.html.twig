@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Channel index{% endblock %}
+
+{% block body %}
+    {% if category %}
+    <h1>Canaux pour la catégorie "{{ category }}"</h1>
+    {% else %}
+    <h1>Tous les canaux</h1>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>News</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for channel in channels %}
+            <tr>
+                <td>
+                    <kbd>{{ channel.name }}</kbd>
+                </td>
+                <td>
+                {% if channel.news %}
+                <span class="badge badge-danger">{{ channel.news }}</span>
+                {% else %}
+                -
+                {% endif %}
+                </td>
+                <td>
+                    <em>{{ channel.description }}</em>
+                    {#
+                    {% for category in channel.categories %}
+                        <a class="badge badge-primary" 
+                            href="{{ path('channel_by_category', {id: category.id}) }}">
+                            {{ category }}
+                        </a>
+                    {% endfor %}
+                    #}
+                </td>
+                <td>
+                    <a href="{{ path('message_index', {'id': channel.id}) }}">messages</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('channel_edit', {'id': channel.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('channel_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+
+
+.msg-other, .msg-mine {
+    width:80%;
+}
+
+.msg-mine {
+    float:right;
+    background-color:#cbe1f9;
+}
+
+nav {
+    margin-bottom:10px;
+}
